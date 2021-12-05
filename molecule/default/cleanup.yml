@@ -1,0 +1,8 @@
+---
+- name: Cleanup
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: "Show the value of {{ ansible_playbook_python }}"
+      debug:
+        var: ansible_playbook_python
