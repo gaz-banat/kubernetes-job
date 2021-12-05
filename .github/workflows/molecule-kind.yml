@@ -1,0 +1,30 @@
+---
+name: Molecule Kind Test
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+#    schedule:
+#        - cron: '0 6 * * *'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.x'
+        - name: Install dependencies.
+          run: >
+            pip3 install molecule docker openshift
+            ansible-lint yamllint
+        - name: Run molecule test.
+          run: molecule test
+          env:
+              PY_COLORS: '1'
+              ANSIBLE_FORCE_COLOR: '1'
